@@ -4,8 +4,9 @@
 #include <tables/sin2048_int8.h> // sine table for oscillator
 #include <RollingAverage.h>
 #include <ControlDelay.h>
+#include "Ultrasonic.h"
 
-#define INPUT_PIN 1 // analog control input
+Ultrasonic ultrasonic(7);
 
 unsigned int echo_cells_1 = 32;
 unsigned int echo_cells_2 = 60;
@@ -26,17 +27,22 @@ int averaged;
 void setup(){
   kDelay.set(echo_cells_1);
   startMozzi();
+  Serial.begin(9600);
 }
 
 
 void updateControl(){
-  int bumpy_input = mozziAnalogRead<10>(INPUT_PIN); // request reading at 10-bit resolution, i.e. 0-1023
+  long bumpy_input = (1023 - ultrasonic.MeasureInCentimeters()*8);
+  if(bumpy_input<100) bumpy_input=100;
   averaged = kAverage.next(bumpy_input);
   aSin0.setFreq(averaged);
   aSin1.setFreq(kDelay.next(averaged));
   aSin2.setFreq(kDelay.read(echo_cells_2));
   aSin3.setFreq(kDelay.read(echo_cells_3));
+  Serial.println(bumpy_input);
 }
+
+
 
 
 AudioOutput updateAudio(){
