@@ -32,7 +32,8 @@ void setup(){
 
 
 void updateControl(){
-  long bumpy_input = (1023 - ultrasonic.MeasureInCentimeters()*8);
+  int amplification = 6; // adjust sound treshold by this
+  long bumpy_input = (1023 - ultrasonic.MeasureInCentimeters()*amplification);
   if(bumpy_input<100) bumpy_input=100;
   averaged = kAverage.next(bumpy_input);
   aSin0.setFreq(averaged);
