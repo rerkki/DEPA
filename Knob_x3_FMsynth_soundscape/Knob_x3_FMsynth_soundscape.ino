@@ -46,7 +46,7 @@ Smooth <long> aSmoothIntensity(smoothness);
 
 
 void setup(){
-  Serial.begin(115200); // set up the Serial output so we can look at the piezo values // set up the Serial output so we can look at the light level
+  Serial.begin(9600); 
   startMozzi(); // :))
 }
 
@@ -56,10 +56,12 @@ void updateControl(){
   long RangeInCentimeters;
 
   // read the knob
-  int knob_1 = ultrasonic.MeasureInCentimeters()/5; // value is 0-1023
+  int dist = (1023 - ultrasonic.MeasureInCentimeters()*3); // value is 0-1023
+  if(dist<100) dist = 100;
+  Serial.println(dist);
 
   // map the knob to carrier frequency
-  int carrier_freq = kMapCarrierFreq(knob_1);
+  int carrier_freq = kMapCarrierFreq(800);
 
   //calculate the modulation frequency to stay in ratio
   int mod_freq = carrier_freq * mod_ratio;
@@ -77,7 +79,7 @@ void updateControl(){
   fm_intensity = ((long)knob2_calibrated * (kIntensityMod.next()+128))>>8; // shift back to range after 8 bit multiply
 
   // read the light dependent resistor on the speed Analog input pin
-  int knob_3 = 500;//mozziAnalogRead(KNOB3_PIN); // value is 0-1023
+  int knob_3 = 700;//mozziAnalogRead(KNOB3_PIN); // value is 0-1023
 
   // use a float here for low frequencies
   float mod_speed = (float)kMapModSpeed(knob_3)/1000;
