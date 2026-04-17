@@ -1,41 +1,4 @@
 /*
-  Example of Wavepacket synthesis, using analog
-  inputs to change the fundamental frequency,
-  bandwidth and centre frequency,
-  using Mozzi sonification library.
-
-  Demonstrates WavePacket, mozziAnalogRead(), and smoothing
-  control signals with RollingAverage.
-  Also demonstrates AutoMap, which maps unpredictable inputs to a set range.
-
-  This example goes with a tutorial on the Mozzi site:
-  http://sensorium.github.io/Mozzi/learn/introductory-tutorial/
-
-  The circuit:
-     Audio output on digital pin 9 on a Uno or similar, or
-    DAC/A14 on Teensy 3.1, or
-     check the README or http://sensorium.github.io/Mozzi/
-
-     Potentiometer connected to analog pin 0.
-       Center pin of the potentiometer goes to the analog pin.
-       Side pins of the potentiometer go to +5V and ground
-
-     Light dependent resistor (LDR) and 5.1k resistor on analog pin 1:
-       LDR from analog pin to +5V (3.3V on Teensy 3.1)
-       5.1k resistor from analog pin to ground
-
-     Light dependent resistor (LDR) and 5.1k resistor on analog pin 2:
-       LDR from analog pin to +5V (3.3V on Teensy 3.1)
-       5.1k resistor from analog pin to ground
-
-   Mozzi documentation/API
-   https://sensorium.github.io/Mozzi/doc/html/index.html
-
-   Mozzi help/discussion/announcements:
-   https://groups.google.com/forum/#!forum/mozzi-users
-
-   Copyright 2013-2024 Tim Barrass and the Mozzi Team
-
    Mozzi is licensed under the GNU Lesser General Public Licence (LGPL) Version 2.1 or later.
 */
 
